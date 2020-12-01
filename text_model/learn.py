@@ -8,7 +8,8 @@ import markovify
 
 
 def load_from_file(files_pattern):
-    """read and merge files which matches given file pattern, prepare for parsing and return it.
+    """
+    read and merge files which matches given file pattern, prepare for parsing and return it.
     """
 
     # read text
@@ -31,7 +32,8 @@ def load_from_file(files_pattern):
 
 
 def split_for_markovify(text):
-    """split text to sentences by newline, and split sentence to words by space.
+    """
+    split text to sentences by newline, and split sentence to words by space.
     """
     # separate words using mecab
     mecab = MeCab.Tagger()
@@ -71,7 +73,6 @@ def split_for_markovify(text):
 def main():
     # load text
     rampo_text = load_from_file('text_w.txt')
-    # print()
     # split text to learnable form
     splitted_text = split_for_markovify(rampo_text)
 
@@ -83,11 +84,12 @@ def main():
     for i in range(30):
         try:
             sentence = text_model.make_sentence()
-            print(''.join(sentence.split()))    # need to concatenate space-splitted text
+            # need to concatenate space-splitted text
+            print(''.join(sentence.split()))
         except:
             sentence = text_model.make_sentence()
             print(sentence)
-    # save learned data 
+    # save learned data
     with open('learned_data.json', 'w') as f:
         f.write(text_model.to_json())
 
