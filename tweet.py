@@ -140,5 +140,5 @@ def user_timeline_search(count, user_name):
 # user_search('プログラミング ')
 # user_timeline_search(200, '@poly_soft')
 
-# 関数の呼び出し
+# ツイートテキストの取得
 user_timeline_search(200, '@manabubannai')
