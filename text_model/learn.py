@@ -33,9 +33,19 @@ def load_from_file(files_pattern):
 
 def split_for_markovify(text):
     """
-    split text to sentences by newline, and split sentence to words by space.
+    テキストを分割する
+
+    Parameters
+    ----------
+    text : str
+        前処理をするテキスト
+
+    Returns
+    -------
+    splitted_text : str
+        分割したテキスト
     """
-    # separate words using mecab
+    # モデルの呼び出し
     mecab = MeCab.Tagger()
     splitted_text = ""
 
@@ -71,16 +81,17 @@ def split_for_markovify(text):
 
 
 def main():
-    # load text
+    """
+    モデルを学習し、テキストを表示する
+    """
+    # テキストの読み込み
     rampo_text = load_from_file('text_w.txt')
-    # split text to learnable form
+    # テキストを分割
     splitted_text = split_for_markovify(rampo_text)
-
-    # print(splitted_text)
-    # learn model from text.
+    # テキストから学習
     text_model = markovify.NewlineText(splitted_text, state_size=3)
 
-    # ... and generate from model.
+    # テキストの生成
     for i in range(30):
         try:
             sentence = text_model.make_sentence()
@@ -89,13 +100,13 @@ def main():
         except:
             sentence = text_model.make_sentence()
             print(sentence)
-    # save learned data
+    # テキストの保存
     with open('learned_data.json', 'w') as f:
         f.write(text_model.to_json())
 
+    # 特定のテキストから始まる文章を生成
     start_text_model = text_model.make_sentence_with_start(beginning="バンコク")
     print(start_text_model)
-    # later, if you want to reuse learned data...
     """
     with open('learned_data.json') as f:
         text_model = markovify.NewlineText.from_json(f.read())

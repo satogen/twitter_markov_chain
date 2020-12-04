@@ -24,6 +24,16 @@ twitter = OAuth1Session(CK, CS, AT, ATS)
 def remove_emoji(src_str):
     """
     絵文字の削除
+
+    Parameters
+    ----------
+    src_str : str
+        引用元のテキスト
+
+    Returns
+    -------
+    body : text
+        絵文字を削除したテキスト
     """
     return ''.join(c for c in src_str if c not in emoji.UNICODE_EMOJI)
 
@@ -31,6 +41,11 @@ def remove_emoji(src_str):
 def user_search(keyword):
     """
     APIによるユーザの検索
+
+    Parameters
+    ----------
+    keyword : str
+        検索したキーワード
     """
     url = 'https://api.twitter.com/1.1/users/search.json'
 
@@ -55,6 +70,14 @@ def user_search(keyword):
 def user_timeline_search(count, user_name):
     """
     ユーザのタイムラインのデータを取得
+
+    Parameters
+    ----------
+    count : int
+        取得するTweet数
+
+    user_name : str
+        対象のユーザの名前
     """
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
 
@@ -99,6 +122,11 @@ def user_timeline_search(count, user_name):
         f.write(all_text)
 
 
+"""
+下記呼び出し例
+"""
 # user_search('プログラミング ')
 # user_timeline_search(200, '@poly_soft')
+
+# 関数の呼び出し
 user_timeline_search(200, '@manabubannai')
