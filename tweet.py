@@ -6,19 +6,31 @@ import json
 from requests_oauthlib import OAuth1Session
 import pandas as pd
 
-# .env ファイルをロードして環境変数へ反映
 from dotenv import load_dotenv
 load_dotenv()
 
+"""
+CK str:
+    twitterAPIのconsumer_key
+
+CS str:
+    twitterAPIのconsumer_secret
+
+AT str:
+    twitterAPIのaccess_token
+
+ATS str:
+    twitterAPIのaccess_token_secret
+"""
 
 # OAuth認証部分
 CK = os.getenv('CK')
 CS = os.getenv('CS')
 AT = os.getenv('AT')
 ATS = os.getenv('ATS')
-twitter = OAuth1Session(CK, CS, AT, ATS)
 
-# Twitter Endpoint(ユーザータイムラインを取得する)
+# Twitter認証
+twitter = OAuth1Session(CK, CS, AT, ATS)
 
 
 def remove_emoji(src_str):
@@ -83,7 +95,7 @@ def user_timeline_search(count, user_name):
 
     # パラメーター
     params = {
-        'count': count,             # 取得するtweet数 最大値200
+        'count': count,            # 取得するtweet数 最大値200
         'screen_name': user_name,  # twitterアカウント名
         'include_rts': False,
         'exclude_replies': False
